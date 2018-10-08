@@ -7,8 +7,7 @@
     "scss": "node-sass scss/style.scss dist/style.css --watch",
     "webpack-watch": "webpack -d --watch",
     "express-server": "nodemon server",
-    "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
     "build": "webpack --mode production"
   },
   "author": "Renzo Navarro",

@@ -5,6 +5,26 @@ const { Client } = require('pg');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const Client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+
+express()
+.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect()
+    const result = await client.query('SELECT * FROM test_table');
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results );
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
