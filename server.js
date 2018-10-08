@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const { Client } = require('pg');
+const { Pool } = require('pg');
+// const { Client } = require('pg');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const pool = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
@@ -33,23 +34,23 @@ app.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   })
-
-app.get('/employee/list', (req, res) => {
-  const client = new Client();
-  client.connect()
-  .then( () => {
-    return client.query('SELECT * FROM employee ORDER BY employee_id;');
-  })
-  .then((results) => {
-    console.log('results? ', results);
-    res.send({
-      employees: results.rows
-    });
-  })
-  .catch((err) => {
-    res.send('something bad happened')
-  });
-});
+//
+// app.get('/employee/list', (req, res) => {
+//   const client = new Client();
+//   client.connect()
+//   .then( () => {
+//     return client.query('SELECT * FROM employee ORDER BY employee_id;');
+//   })
+//   .then((results) => {
+//     console.log('results? ', results);
+//     res.send({
+//       employees: results.rows
+//     });
+//   })
+//   .catch((err) => {
+//     res.send('something bad happened')
+//   });
+// });
 
 //
 // app.get('/employee/list/:id', (req, res) => {
@@ -128,12 +129,13 @@ app.get('/employee/list', (req, res) => {
 //     res.send('something bad happened')
 //   });
 // });
-
-
-app.get('*', function (request, response){
-      response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-    })
+//
+//
+// app.get('*', function (request, response){
+//       response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+//     })
 
 app.listen(process.env.PORT, () => {
+  console.log(`Database ${process.env.DATABASE_URL}`);
   console.log(`Listening on port ${process.env.PORT}`);
 });
