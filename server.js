@@ -21,7 +21,7 @@ app.use('/', express.static(path.resolve(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
+app.set('view engine', 'ejs')
 app.get('/db', async (req, res) => {
     try {
       const client = await pool.connect()
