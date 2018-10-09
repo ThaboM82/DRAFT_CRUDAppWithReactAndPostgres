@@ -52,7 +52,7 @@ export default class employeeNew extends Component {
       axios
       .get(`/employee/list/${this.props.match.params.id}`)
       .then(response => {
-        console.log("response", response)
+        console.log("response.data", response.data)
       })
       .then(response => {
         this.setState({
@@ -75,7 +75,7 @@ export default class employeeNew extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log("this.state", this.state);
     return (
       <div id="main-frame" className="employee-form">
         <form onSubmit={this.handleSubmit.bind(this)}>
