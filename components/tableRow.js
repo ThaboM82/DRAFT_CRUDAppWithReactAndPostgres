@@ -11,12 +11,12 @@ export default class tableRow extends Component {
   };
 
   handleDelete(employee) {
-    axios.get(`/employee/delete/${employee.employee_id}`)
+    axios.get(`/employee/delete/${employee.id}`)
     .then(() => {
       this.props.onUpdate();
     })
     .then(() => {
-      console.log(`Employee (${employee.employee_name}) DELETED`)
+      console.log(`Employee (${employee.name}) DELETED`)
     })
     .catch((err) => {
       console.log(err)
@@ -28,14 +28,14 @@ export default class tableRow extends Component {
     return (
         <tr>
           <td>
-            {employee.employee_id}
+            {employee.id}
           </td>
           <td>
-            {employee.employee_name}
+            {employee.name}
           </td>
           <td className="box-actions">
-            <Link to={`/view/${employee.employee_id}`}><button >View</button></Link>
-            <Link to={`/edit/${employee.employee_id}`}><button >Edit</button></Link>
+            <Link to={`/view/${employee.id}`}><button >View</button></Link>
+            <Link to={`/edit/${employee.id}`}><button >Edit</button></Link>
             <button onClick={this.handleDelete.bind(this, employee)} className="button-danger">Delete</button>
           </td>
         </tr>

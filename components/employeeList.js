@@ -26,7 +26,7 @@ export default class employeeList extends Component {
       this.state.employees.map((employee) => {
         return (
           <TableRow
-            key={employee.employee_id}
+            key={employee.id}
             employee={employee}
             onUpdate={this.componentDidMount.bind(this)}
           />
