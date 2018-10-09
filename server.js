@@ -11,10 +11,11 @@ app.use('/', express.static(path.resolve(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const client = new Client({
+  connectionString: DATABASE_URL,
+});
+
 app.get('/employee/list', (req, res) => {
-  const client = new Client({
-    connectionString: DATABASE_URL,
-  });
   // res.statusCode = 200;
   // res.setHeader('Content-Type', 'text/plain');
   client.connect()
@@ -33,9 +34,9 @@ app.get('/employee/list', (req, res) => {
 });
 
 app.get('/employee/list/:id', (req, res) => {
-  const client = new Client({
-    connectionString: DATABASE_URL,
-  });
+  // const client = new Client({
+  //   connectionString: DATABASE_URL,
+  // });
   client.connect()
   .then( () => {
     const sql = 'SELECT name, id FROM employee WHERE id = $1;';
