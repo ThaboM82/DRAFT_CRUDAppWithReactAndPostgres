@@ -24,7 +24,7 @@ export default class tableRow extends Component {
   };
 
   render() {
-    console.log("employee en tableRow:", this.state.employee )
+    // console.log("employee en tableRow:", this.state.employee )
     const employee = this.state.employee;
     return (
         <tr key={employee.id}>

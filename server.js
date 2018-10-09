@@ -73,6 +73,24 @@ app.post('/employee/add', (req, res) => {
   });
 });
 
+app.post('/employee/edit/:id', (req, res) => {
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
+  client.connect()
+  .then(() => {
+    const sql = 'UPDATE employee SET name = ($1) WHERE id = ($2);';
+    const params = [req.body.name, req.params.id];
+    return client.query(sql, params)
+  })
+  .then(() => {
+    res.send("Edition successful!");
+  })
+  .catch((err) => {
+    res.send('Something bad happened');
+  });
+});
+
 app.listen(process.env.PORT, () => {
   console.log("DATABASE_URL", DATABASE_URL)
   console.log(`Listening on port ${process.env.PORT}`);

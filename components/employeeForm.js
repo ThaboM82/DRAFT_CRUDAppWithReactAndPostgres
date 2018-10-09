@@ -72,7 +72,7 @@ export default class employeeNew extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
     return (
       <div id="main-frame" className="employee-form">
         <form onSubmit={this.handleSubmit.bind(this)}>
