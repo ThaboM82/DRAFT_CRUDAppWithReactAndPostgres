@@ -42,9 +42,6 @@ app.get('/employee/list/:id', (req, res) => {
     const params = [req.params.id];
     return client.query(sql, params)
   })
-  .then(results => {
-    console.log("results.rows[0]", results.rows[0])
-  })
   .then((results) => {
     console.log('results.rows[0]?', results.rows[0]);
     res.send({
@@ -52,7 +49,7 @@ app.get('/employee/list/:id', (req, res) => {
     });
   })
   .catch((err) => {
-    res.send('something bad happened')
+    res.send('Something bad happened')
   });
 });
 
