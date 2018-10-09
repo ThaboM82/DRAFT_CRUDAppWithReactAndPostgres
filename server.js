@@ -11,11 +11,10 @@ app.use('/', express.static(path.resolve(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const client = new Client({
-  connectionString: DATABASE_URL,
-});
-
 app.get('/employee/list', (req, res) => {
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
   // res.statusCode = 200;
   // res.setHeader('Content-Type', 'text/plain');
   client.connect()
@@ -34,9 +33,9 @@ app.get('/employee/list', (req, res) => {
 });
 
 app.get('/employee/list/:id', (req, res) => {
-  // const client = new Client({
-  //   connectionString: DATABASE_URL,
-  // });
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
   client.connect()
   .then( () => {
     const sql = 'SELECT name, id FROM employee WHERE id = $1;';
@@ -51,6 +50,26 @@ app.get('/employee/list/:id', (req, res) => {
   })
   .catch((err) => {
     res.send('Something bad happened')
+  });
+});
+
+app.post('/employee/add', (req, res) => {
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
+  client.connect()
+  .then( () => {
+    const sql = 'INSERT INTO employee (name) VALUES ($1);';
+    const params = [req.body.name];
+    return client.query(sql, params)
+  })
+  .then((result) => {
+    console.log('results?', result);
+    res.redirect('/employee/list');
+  })
+  .catch((err) => {
+    console.log('err', err);
+    res.redirect('/employee/list');
   });
 });
 
