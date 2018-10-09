@@ -53,8 +53,8 @@ export default class employeeNew extends Component {
       .get(`/employee/list/${this.props.match.params.id}`)
       .then(response => {
         this.setState({
-          employee_name: response.data.employee.employee_name,
-          employee_id: response.data.employee.employee_id
+          employee_name: response.data.employee.name,
+          employee_id: response.data.employee.id
         });
       })
       .catch(error => {

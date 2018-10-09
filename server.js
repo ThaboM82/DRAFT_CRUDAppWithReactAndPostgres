@@ -11,10 +11,11 @@ app.use('/', express.static(path.resolve(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const client = new Client({
+  connectionString: DATABASE_URL,
+});
+
 app.get('/employee/list', (req, res) => {
-  const client = new Client({
-    connectionString: DATABASE_URL,
-  });
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   client.connect()
@@ -31,6 +32,25 @@ app.get('/employee/list', (req, res) => {
     res.send('something bad happened')
   });
 });
+
+// app.get('/employee/list/:id', (req, res) => {
+//   const client = new Client();
+//   client.connect()
+//   .then( () => {
+//     const sql = 'SELECT employee_name, employee_id FROM employee WHERE employee_id = $1;';
+//     const params = [req.params.id];
+//     return client.query(sql, params)
+//   })
+//   .then((results) => {
+//     console.log('results.rows[0]?', results.rows[0]);
+//     res.send({
+//       employee: results.rows[0]
+//     });
+//   })
+//   .catch((err) => {
+//     res.send('something bad happened')
+//   });
+// });
 
 app.listen(process.env.PORT, () => {
   console.log("DATABASE_URL", DATABASE_URL)
