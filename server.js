@@ -1,40 +1,42 @@
-const { Pool } = require('pg')
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-const bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
 const app = express();
+const { Client } = require('pg');
+const bodyParser = require('body-parser');
 require('dotenv').config();
+const { DATABASE_URL } = process.env;
 
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-});
 
 app.use('/', express.static(path.resolve(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app
-  // .use(express.static(path.join(__dirname, '')))
-  // .set('views', path.join(__dirname, 'views'))
-  // .set('view engine', 'ejs')
-  // .get('/', (req, res) => res.render('pages/index'))
-  .get('/db', async (req, res) => {
-    res.send(JSON.stringify({ Hello: ‘World’}));
-    // try {
-    //   const client = await pool.connect()
-    //   const result = await client.query("SELECT * FROM employee");
-    //   const results = {'results': (result) ? result.rows : null};
-    //   res.render('pages/db', results);
-    //   client.release();
-    // } catch (err) {
-    //   console.error("Error_c! : ", err);
-    //   res.send("Error_b!!! :" + err);
-    // }
+app.get('/employee/list', (req, res) => {
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  client.connect()
+  .then( () => {
+    return client.query('SELECT * FROM employee');
   })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .then((results) => {
+    console.log('results? ', results);
+    res.send({
+      employees: results.rows
+    });
+  })
+  .catch((err) => {
+    res.send('something bad happened')
+  });
+});
+
+app.listen(process.env.PORT, () => {
+  console.log("DATABASE_URL", DATABASE_URL)
+  console.log(`Listening on port ${process.env.PORT}`);
+});
+
 
 
 
