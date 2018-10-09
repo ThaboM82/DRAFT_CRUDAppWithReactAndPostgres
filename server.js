@@ -37,7 +37,9 @@ app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
 
-
+app.get('*', function (request, response){
+      response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+    })
 
 
 // const express = require('express');
