@@ -1,39 +1,58 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const { Pool } = require('pg');
-// const { Client } = require('pg');
+const { Pool } = require('pg')
+const express = require('express')
+const path = require('path')
+const PORT = process.env.PORT || 5000
+const cool = require('cool-ascii-faces')
 const bodyParser = require('body-parser');
 require('dotenv').config();
+
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.use('/', express.static(path.resolve(__dirname, 'dist')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.set('view engine', 'ejs')
-app.get('/db', async (req, res) => {
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .use(bodyParser.urlencoded({ extended: true }));
+  .use(bodyParser.json());
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .get('/db', async (req, res) => {
     try {
       const client = await pool.connect()
-      const result = await client.query('SELECT * FROM employee');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
+      const result = await client.query("SELECT * FROM employee");
+      const results = {'results': (result) ? result.rows : null};
+      res.render('pages/db', results);
       client.release();
     } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
+      console.error("Error_c! : ", err);
+      res.send("Error_b!!! :" + err);
     }
   })
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+
+
+// const express = require('express');
+// const path = require('path');
+// const app = express();
+// const { Client } = require('pg');
+// const bodyParser = require('body-parser');
+// require('dotenv').config();
+//
+//
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+//
+// app.use('/', express.static(path.resolve(__dirname, 'dist')));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+//
 //
 // app.get('/employee/list', (req, res) => {
 //   const client = new Client();
@@ -51,7 +70,7 @@ app.get('/db', async (req, res) => {
 //     res.send('something bad happened')
 //   });
 // });
-
+//
 //
 // app.get('/employee/list/:id', (req, res) => {
 //   const client = new Client();
@@ -134,8 +153,7 @@ app.get('/db', async (req, res) => {
 // app.get('*', function (request, response){
 //       response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 //     })
-
-app.listen(process.env.PORT, () => {
-  console.log(`Database ${process.env.DATABASE_URL}`);
-  console.log(`Listening on port ${process.env.PORT}`);
-});
+//
+// app.listen(process.env.PORT, () => {
+//   console.log(`Listening on port ${process.env.PORT}`);
+// });
