@@ -43,7 +43,7 @@ app.get('/employee/list/:id', (req, res) => {
     return client.query(sql, params)
   })
   .then(results => {
-    console.log("results", results)
+    console.log("results.rows[0]", results.rows[0])
   })
   .then((results) => {
     console.log('results.rows[0]?', results.rows[0]);
