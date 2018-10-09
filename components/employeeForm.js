@@ -52,7 +52,7 @@ export default class employeeNew extends Component {
       axios
       .get(`/employee/list/${this.props.match.params.id}`)
       .then(response => {
-        console.log("response.data", response.data)
+        console.log("response.data", response.data.employee)
       })
       .then(response => {
         this.setState({
