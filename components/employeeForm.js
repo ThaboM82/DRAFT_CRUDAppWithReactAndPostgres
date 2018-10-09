@@ -52,6 +52,9 @@ export default class employeeNew extends Component {
       axios
       .get(`/employee/list/${this.props.match.params.id}`)
       .then(response => {
+        console.log("response", response)
+      })
+      .then(response => {
         this.setState({
           employee_name: response.data.employee.name,
           employee_id: response.data.employee.id
