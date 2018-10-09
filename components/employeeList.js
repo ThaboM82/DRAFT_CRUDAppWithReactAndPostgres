@@ -36,6 +36,7 @@ export default class employeeList extends Component {
   };
 
   render() {
+    console.log(this.state.employees)
     return this.state.employees.length == 0
     ? (<p>No employee entries</p>)
     : (
