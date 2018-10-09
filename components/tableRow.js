@@ -26,7 +26,7 @@ export default class tableRow extends Component {
   render() {
     const employee = this.state.employee;
     return (
-        <tr>
+        <tr key={employee.id}>
           <td>
             {employee.id}
           </td>
