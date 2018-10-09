@@ -15,8 +15,8 @@ app.get('/employee/list', (req, res) => {
   const client = new Client({
     connectionString: DATABASE_URL,
   });
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
+  // res.statusCode = 200;
+  // res.setHeader('Content-Type', 'text/plain');
   client.connect()
   .then( () => {
     return client.query('SELECT * FROM employee');
