@@ -1,12 +1,10 @@
 # Just a RESTful app with a CRUD cycle
-It was built upon React, Node, Express, PostgresQL, and stored in Heroku.
+It was built upon React, Node, Express.js, PostgresQL, and stored in Heroku.
 
 ## GIF Sample:
 
-![testapp](https://user-images.githubusercontent.com/28744826/46707402-5f411580-cbff-11e8-8b79-aaf1edb0984a.gif)
-
 <img src="https://user-images.githubusercontent.com/28744826/46707402-5f411580-cbff-11e8-8b79-aaf1edb0984a.gif"
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" />
+alt="IMAGE ALT TEXT HERE" width="449" height="244" border="10" />
 
 ## Demo:
 [Link to Heroku](https://sleepy-refuge-43913.herokuapp.com/)
