@@ -23,10 +23,10 @@ export default class employeeList extends Component {
 
   getTable() {
     return (
-      this.state.employees.map((employee) => {
+      this.state.employees.map((employee, i) => {
         return (
           <TableRow
-            // key={employee.id}
+            key={i}
             employee={employee}
             onUpdate={this.componentDidMount.bind(this)}
           />
