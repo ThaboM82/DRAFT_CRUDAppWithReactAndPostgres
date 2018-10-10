@@ -25,6 +25,7 @@ export default class employeeList extends Component {
     return (
       this.state.employees.map((employee, i) => {
         return (
+          console.log("i", i);
           <TableRow
             key={i}
             employee={employee}
