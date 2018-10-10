@@ -16,7 +16,7 @@ export default class tableRow extends Component {
       this.props.onUpdate();
     })
     .then(() => {
-      console.log(`Employee (${employee.name}) DELETED`)
+      console.log(`Employee ${employee.name} DELETED`)
     })
     .catch((err) => {
       console.log(err)
@@ -24,7 +24,6 @@ export default class tableRow extends Component {
   };
 
   render() {
-    // console.log("employee en tableRow:", this.state.employee )
     const employee = this.state.employee;
     return (
         <tr>
