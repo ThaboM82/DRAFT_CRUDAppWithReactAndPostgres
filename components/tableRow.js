@@ -27,7 +27,8 @@ export default class tableRow extends Component {
     // console.log("employee en tableRow:", this.state.employee )
     const employee = this.state.employee;
     return (
-        <tr key={employee.id}>
+      <div key={employee.id}>
+        <tr>
           <td>
             {employee.id}
           </td>
@@ -40,6 +41,7 @@ export default class tableRow extends Component {
             <button onClick={this.handleDelete.bind(this, employee)} className="button-danger">Delete</button>
           </td>
         </tr>
+      </div>
     );
   };
 };
