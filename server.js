@@ -91,6 +91,29 @@ app.post('/employee/edit/:id', (req, res) => {
   });
 });
 
+app.get('/employee/delete/:id', (req, res) => {
+  const client = new Client({
+    connectionString: DATABASE_URL,
+  });
+  client.connect()
+  .then(() => {
+    const sql = 'DELETE FROM employee WHERE id = ($1);';
+    const params = [req.params.id];
+    return client.query(sql, params)
+  })
+  .then( () => {
+    return client.query('SELECT * FROM employee;');
+  })
+  .then((results) => {
+    res.send({
+      employees: results.rows
+    });
+  })
+  .catch((err) => {
+    res.send('something bad happened')
+  });
+});
+
 app.listen(process.env.PORT, () => {
   console.log("DATABASE_URL", DATABASE_URL)
   console.log(`Listening on port ${process.env.PORT}`);
