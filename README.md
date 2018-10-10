@@ -4,7 +4,7 @@ It was built upon React, Node, Express.js, PostgresQL, and stored in Heroku.
 ## GIF Sample:
 
 <img src="https://user-images.githubusercontent.com/28744826/46707402-5f411580-cbff-11e8-8b79-aaf1edb0984a.gif"
-alt="IMAGE ALT TEXT HERE" width="449" height="244" border="10" />
+alt="IMAGE ALT TEXT HERE" width="673" height="366" border="10" />
 
 ## Demo:
 [Link to Heroku](https://sleepy-refuge-43913.herokuapp.com/)
