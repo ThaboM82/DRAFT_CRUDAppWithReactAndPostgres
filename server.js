@@ -15,8 +15,6 @@ app.get('/employee/list', (req, res) => {
   const client = new Client({
     connectionString: DATABASE_URL,
   });
-  // res.statusCode = 200;
-  // res.setHeader('Content-Type', 'text/plain');
   client.connect()
   .then( () => {
     return client.query('SELECT * FROM employee');
@@ -114,14 +112,15 @@ app.get('/employee/delete/:id', (req, res) => {
   });
 });
 
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
+
 app.listen(process.env.PORT, () => {
   console.log("DATABASE_URL", DATABASE_URL)
   console.log(`Listening on port ${process.env.PORT}`);
 });
 
-app.get('*', function (request, response){
-      response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-    })
 
 
 // const express = require('express');
